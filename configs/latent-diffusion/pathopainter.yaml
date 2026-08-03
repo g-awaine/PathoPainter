@@ -30,6 +30,7 @@ model:
 
     unet_config:
       target: ldm.modules.diffusionmodules.openaimodel.UNetModel
+      ckpt_path: ./checkpoints/unet.ckpt
       params:
         use_checkpoint: True
         use_fp16: True
@@ -44,7 +45,6 @@ model:
         use_spatial_transformer: True
         transformer_depth: 1
         context_dim: 512
-        ckpt_path: ./checkpoints/unet.ckpt
 
     first_stage_config:
       target: ldm.models.autoencoder.VQModelInterface
