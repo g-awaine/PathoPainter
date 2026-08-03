@@ -14,13 +14,11 @@ from PIL import Image
 from pytorch_lightning import seed_everything
 from pytorch_lightning.trainer import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint, Callback, LearningRateMonitor
-from pytorch_lightning.utilities.distributed import rank_zero_only
 
-# from pytorch_lightning.utilities.rank_zero import rank_zero_only
-from pytorch_lightning.utilities import rank_zero_info
+from pytorch_lightning.utilities import rank_zero_only
 
 from ldm.util import instantiate_from_config
-from pytorch_lightning.plugins import DDPPlugin
+
 os.environ["WANDB_SILENT"] = "true"
 
 
@@ -444,8 +442,8 @@ class CUDACallback(Callback):
             max_memory = trainer.training_type_plugin.reduce(max_memory)
             epoch_time = trainer.training_type_plugin.reduce(epoch_time)
 
-            rank_zero_info(f"Average Epoch time: {epoch_time:.2f} seconds")
-            rank_zero_info(f"Average Peak memory {max_memory:.2f}MiB")
+            rank_zero_only(f"Average Epoch time: {epoch_time:.2f} seconds")
+            rank_zero_only(f"Average Peak memory {max_memory:.2f}MiB")
         except AttributeError:
             pass
 
@@ -567,6 +565,7 @@ if __name__ == "__main__":
         lightning_config.trainer = trainer_config
 
         # model
+        print(config)
         model = instantiate_from_config(config.model)
 
         # trainer and callbacks
