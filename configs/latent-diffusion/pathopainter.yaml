@@ -44,12 +44,12 @@ model:
         use_spatial_transformer: True
         transformer_depth: 1
         context_dim: 512
-        # ckpt_path: ./checkpoints/unet.ckpt
+        ckpt_path: ./checkpoints/unet.ckpt
 
     first_stage_config:
       target: ldm.models.autoencoder.VQModelInterface
       params:
-        ckpt_path: ./checkpoints/model.ckpt
+        ckpt_path: ./checkpoints/vqf4.ckpt
         embed_dim: 3
         n_embed: 8192
         ddconfig:
@@ -91,7 +91,6 @@ data:
           p_uncond: 0.1
 
 lightning:
-
   callbacks:
     metrics_over_trainsteps_checkpoint:
       params:
