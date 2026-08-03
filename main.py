@@ -573,6 +573,13 @@ if __name__ == "__main__":
 
         # default logger configs
         default_logger_cfgs = {
+            "csv": {
+                "target": "pytorch_lightning.loggers.CSVLogger",
+                "params": {
+                    "save_dir": logdir,
+                    "name": opt.name or nowname,
+                },
+            },
             "wandb": {
                 "target": "pytorch_lightning.loggers.WandbLogger",
                 "params": {
@@ -592,7 +599,7 @@ if __name__ == "__main__":
                 },
             },
         }
-        default_logger_cfg = default_logger_cfgs["wandb"]
+        default_logger_cfg = default_logger_cfgs["csv"]
         if "logger" in lightning_config:
             logger_cfg = lightning_config.logger
         else:
