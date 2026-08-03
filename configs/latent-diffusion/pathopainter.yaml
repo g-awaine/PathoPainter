@@ -91,6 +91,11 @@ data:
           p_uncond: 0.1
 
 lightning:
+  logger:
+    target: pytorch_lightning.loggers.CSVLogger
+    params:
+      save_dir: logs
+      name: pathopainter
   callbacks:
     metrics_over_trainsteps_checkpoint:
       params:
