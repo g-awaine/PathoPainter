@@ -200,3 +200,31 @@ class FrozenClipImageEmbedder(nn.Module):
         # x is assumed to be in range [-1,1]
         return self.model.encode_image(self.preprocess(x))
 
+
+
+class PatchEmbedder(nn.Module):
+    """only use patch level embeddings"""
+
+    def __init__(
+        self,
+        patch_ssl_key="feat_patch",
+        patch_embed_dim=768,
+        target_dim=512,
+        normalize_ssl=False,
+    ):
+        super().__init__()
+        self.patch_ssl_key = patch_ssl_key
+
+        # project patch/region embedder to txt dimension
+        self.patch_fc = nn.Linear(patch_embed_dim, target_dim)
+        self.normalize_ssl = normalize_ssl
+
+    def forward(self, batch):
+        patch_embed = batch[self.patch_ssl_key]
+
+        if self.normalize_ssl:
+            # normalize ssl embeddings (l2 norm)
+            patch_embed = F.normalize(patch_embed, dim=-1)
+
+        patch_embed_proj = self.patch_fc(patch_embed).unsqueeze(1)
+        return patch_embed_proj
