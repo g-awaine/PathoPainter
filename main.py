@@ -15,7 +15,7 @@ from pytorch_lightning import seed_everything
 from pytorch_lightning.trainer import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint, Callback, LearningRateMonitor
 
-from pyfrom pytorch_lightning.loggers import TensorBoardLogger
+from pytorch_lightning.loggers import TensorBoardLogger
 torch_lightning.utilities import rank_zero_only
 
 from ldm.util import instantiate_from_config
