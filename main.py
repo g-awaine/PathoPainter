@@ -576,7 +576,6 @@ if __name__ == "__main__":
             "wandb": {
                 "target": "pytorch_lightning.loggers.WandbLogger",
                 "params": {
-                    "project": "tcga_ssl_cond",
                     "name": opt.wandb_name or nowname,
                     "save_dir": logdir,
                     "offline": opt.debug,
