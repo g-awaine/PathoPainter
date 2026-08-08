@@ -12,7 +12,7 @@ model:
     timesteps: 1000
     first_stage_key: image
     cond_stage_key: hybrid
-    image_size: 64
+    image_size: 56
     channels: 4
     cond_stage_trainable: true 
     conditioning_key: crossattn
@@ -34,7 +34,7 @@ model:
       params:
         use_checkpoint: True
         use_fp16: True
-        image_size: 64
+        image_size: 56
         in_channels: 7
         out_channels: 3
         model_channels: 192
